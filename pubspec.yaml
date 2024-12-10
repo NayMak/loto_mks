@@ -1,5 +1,5 @@
 name: loto_mks
-description: "A new Flutter project."
+description: "A Loto game web app"
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
@@ -21,3 +21,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/cards/
