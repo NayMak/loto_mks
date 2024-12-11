@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:loto_mks/models/loto_card.dart';
 
 class LotoProvider extends ChangeNotifier {
+  int gridViewAxisCount = 3;
+  bool isGameStarted = false;
   LotoCard? currentCard;
   List<LotoCard> remainingCards = [];
   List<LotoCard> announcedCards = [];
 
   void init() {
+    isGameStarted = false;
     currentCard = null;
-    
+
     // On initialise le tableau duquel les cartes seront tirées
     remainingCards = List.generate(90, (index) {
       final asset =
@@ -24,6 +27,11 @@ class LotoProvider extends ChangeNotifier {
 
     // On vide le tableau des cartes annoncées
     announcedCards.clear();
+    notifyListeners();
+  }
+
+  void startGame() {
+    isGameStarted = true;
     notifyListeners();
   }
 
@@ -41,6 +49,11 @@ class LotoProvider extends ChangeNotifier {
       // On la retire du tableau des cartes restantes
       remainingCards.removeAt(randomIndex);
     }
+    notifyListeners();
+  }
+
+  updateGridViewAxisCount(int value) {
+    gridViewAxisCount = value;
     notifyListeners();
   }
 }
