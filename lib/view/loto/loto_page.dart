@@ -25,7 +25,7 @@ class _LotoPageState extends State<LotoPage> {
                 child: Column(
                   children: [
                     Text(
-                      'Loto',
+                      'JEU DU BINGO !',
                       style: TextStyle(
                         fontSize: 96,
                         fontWeight: FontWeight.bold,
