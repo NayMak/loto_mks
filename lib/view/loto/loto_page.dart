@@ -19,31 +19,49 @@ class _LotoPageState extends State<LotoPage> {
         value: LotoProvider(),
         child: Consumer<LotoProvider>(
           builder: (BuildContext context, provider, Widget? child) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      'JEU DU BINGO !',
-                      style: TextStyle(
-                        fontSize: 96,
-                        fontWeight: FontWeight.bold,
-                      ),
+            return Center(
+              child: Column(
+                children: [
+                  Text(
+                    'JEU DU BINGO !',
+                    style: TextStyle(
+                      fontSize: 96,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Expanded(
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 2,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Expanded(
-                            child: provider.currentCard == null
-                                ? Center(child: const Text('Lancer le jeu et tirer une carte pour commencer'))
-                                : Center(
-                                    child: Image(
-                                      image: AssetImage(
-                                        provider.currentCard!.asset,
-                                      ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Expanded(
+                                child: provider.currentCard == null
+                                    ? Center(child: const Text('Lancer le jeu et tirer une carte pour commencer'))
+                                    : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                              provider.currentCard!.asset,
+                                            ),
+                                          ),
+                                        ),
                                     ),
-                                  ),
+                              ),
+                            ),
                           ),
                           SizedBox(width: 16),
                           Column(
@@ -86,54 +104,66 @@ class _LotoPageState extends State<LotoPage> {
                           ),
                           SizedBox(width: 16),
                           Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.tableCellsLarge,
-                                      onPressed: () {
-                                        provider.updateGridViewAxisCount(3);
-                                      },
-                                      disable: provider.gridViewAxisCount == 3,
-                                    ),
-                                    SizedBox(width: 16),
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.tableCells,
-                                      onPressed: () {
-                                        provider.updateGridViewAxisCount(5);
-                                      },
-                                      disable: provider.gridViewAxisCount == 5,
-                                    ),
-                                  ],
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
                                 ),
-                                SizedBox(height: 16),
-                                Expanded(
-                                  child: GridView.count(
-                                    primary: false,
-                                    padding: const EdgeInsets.all(8),
-                                    crossAxisSpacing: 4,
-                                    mainAxisSpacing: 4,
-                                    crossAxisCount: provider.gridViewAxisCount,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      ...provider.announcedCards.map((card) {
-                                        return Image(
-                                          image: AssetImage(card.asset),
-                                        );
-                                      }),
+                                      CircleButton(
+                                        icon: FontAwesomeIcons.tableCellsLarge,
+                                        onPressed: () {
+                                          provider.updateGridViewAxisCount(3);
+                                          print(provider.gridViewAxisCount);
+                                        },
+                                        disable: provider.gridViewAxisCount == 3,
+                                      ),
+                                      SizedBox(width: 16),
+                                      CircleButton(
+                                        icon: FontAwesomeIcons.tableCells,
+                                        onPressed: () {
+                                          print(provider.gridViewAxisCount);
+                                          provider.updateGridViewAxisCount(5);
+                                        },
+                                        disable: provider.gridViewAxisCount == 5,
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  SizedBox(height: 16),
+                                  Expanded(
+                                    child: GridView.count(
+                                      primary: false,
+                                      padding: const EdgeInsets.all(8),
+                                      crossAxisSpacing: 4,
+                                      mainAxisSpacing: 4,
+                                      crossAxisCount: provider.gridViewAxisCount,
+                                      children: [
+                                        ...provider.announcedCards.map((card) {
+                                          return Image(
+                                            image: AssetImage(card.asset),
+                                          );
+                                        }),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },
