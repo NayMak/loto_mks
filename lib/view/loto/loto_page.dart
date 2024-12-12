@@ -47,20 +47,20 @@ class _LotoPageState extends State<LotoPage> {
                                   width: 2,
                                 ),
                               ),
-                              child: Expanded(
-                                child: provider.currentCard == null
-                                    ? Center(child: const Text('Lancer le jeu et tirer une carte pour commencer'))
-                                    : Padding(
+                              child: provider.currentCard == null
+                                  ? Center(
+                                      child: const Text(
+                                          'Lancer le jeu et tirer une carte pour commencer'))
+                                  : Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Center(
-                                          child: Image(
-                                            image: AssetImage(
-                                              provider.currentCard!.asset,
-                                            ),
+                                        child: Image(
+                                          image: AssetImage(
+                                            provider.currentCard!.asset,
                                           ),
                                         ),
+                                      ),
                                     ),
-                              ),
                             ),
                           ),
                           SizedBox(width: 16),
@@ -123,18 +123,18 @@ class _LotoPageState extends State<LotoPage> {
                                         icon: FontAwesomeIcons.tableCellsLarge,
                                         onPressed: () {
                                           provider.updateGridViewAxisCount(3);
-                                          print(provider.gridViewAxisCount);
                                         },
-                                        disable: provider.gridViewAxisCount == 3,
+                                        disable:
+                                            provider.gridViewAxisCount == 3,
                                       ),
                                       SizedBox(width: 16),
                                       CircleButton(
                                         icon: FontAwesomeIcons.tableCells,
                                         onPressed: () {
-                                          print(provider.gridViewAxisCount);
                                           provider.updateGridViewAxisCount(5);
                                         },
-                                        disable: provider.gridViewAxisCount == 5,
+                                        disable:
+                                            provider.gridViewAxisCount == 5,
                                       ),
                                     ],
                                   ),
@@ -145,7 +145,8 @@ class _LotoPageState extends State<LotoPage> {
                                       padding: const EdgeInsets.all(8),
                                       crossAxisSpacing: 4,
                                       mainAxisSpacing: 4,
-                                      crossAxisCount: provider.gridViewAxisCount,
+                                      crossAxisCount:
+                                          provider.gridViewAxisCount,
                                       children: [
                                         ...provider.announcedCards.map((card) {
                                           return Image(
