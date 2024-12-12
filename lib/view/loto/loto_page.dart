@@ -15,6 +15,7 @@ class _LotoPageState extends State<LotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightGreen.shade400,
       body: ChangeNotifierProvider.value(
         value: LotoProvider(),
         child: Consumer<LotoProvider>(
@@ -27,6 +28,14 @@ class _LotoPageState extends State<LotoPage> {
                     style: TextStyle(
                       fontSize: 96,
                       fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 3.0,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                      ],
                     ),
                   ),
                   Divider(

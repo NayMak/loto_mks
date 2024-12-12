@@ -22,7 +22,7 @@ class CircleButton extends StatelessWidget {
         shadowColor: Colors.transparent,
         shape: CircleBorder(),
         padding: EdgeInsets.all(24),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.grey,
         foregroundColor: Colors.white,
         disabledBackgroundColor: Colors.grey,
         disabledForegroundColor: Colors.white,
