@@ -69,8 +69,8 @@ class HomePage extends StatelessWidget {
                                         Shadow(
                                           offset: Offset(1, 1),
                                           blurRadius: 1.0,
-                                          color:
-                                              Colors.black.withValues(red: 0.3),
+                                          color: Colors.black
+                                              .withValues(alpha: 0.1),
                                         ),
                                       ],
                                     ),
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                                           offset: Offset(1, 1),
                                           blurRadius: 1.0,
                                           color: Colors.black
-                                              .withValues(alpha: 0.5),
+                                              .withValues(alpha: 0.1),
                                         ),
                                       ],
                                     ),
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                                   Shadow(
                                     offset: Offset(1, 1),
                                     blurRadius: 1.0,
-                                    color: Colors.black.withValues(alpha: 0.5),
+                                    color: Colors.black.withValues(alpha: 0.1),
                                   ),
                                 ],
                               ),
@@ -152,7 +152,7 @@ class HomePage extends StatelessWidget {
                                   Shadow(
                                     offset: Offset(1, 1),
                                     blurRadius: 1.0,
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black.withValues(alpha: 0.1),
                                   ),
                                 ],
                               ),
@@ -161,7 +161,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             );

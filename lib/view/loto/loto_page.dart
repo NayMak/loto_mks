@@ -59,8 +59,21 @@ class _LotoPageState extends State<LotoPage> {
                               ),
                               child: provider.currentCard == null
                                   ? Center(
-                                      child: const Text(
+                                      child: Text(
                                         'Lancer le jeu et tirer une carte pour commencer',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                          shadows: [
+                                            Shadow(
+                                              offset: Offset(1, 1),
+                                              blurRadius: 1.0,
+                                              color: Colors.black
+                                                  .withValues(alpha: 0.1),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     )
                                   : Padding(
@@ -86,7 +99,8 @@ class _LotoPageState extends State<LotoPage> {
                                   onPressed: () {
                                     provider
                                       ..init()
-                                      ..startGame();
+                                      ..startGame()
+                                      ..selectRandomCard();
                                   },
                                 ),
                               ),
