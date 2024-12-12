@@ -55,6 +55,20 @@ class HomePage extends StatelessWidget {
                                   color: Colors.black,
                                   width: 2,
                                 ),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.tealAccent,
+                                    Colors.greenAccent,
+                                  ],
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.2),
+                                    spreadRadius: 0,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
                               ),
                               child: Column(
                                 spacing: 8,
