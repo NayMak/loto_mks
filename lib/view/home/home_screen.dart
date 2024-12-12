@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({
+class HomePage extends StatelessWidget {
+  const HomePage({
     super.key,
   });
 
