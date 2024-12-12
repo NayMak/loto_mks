@@ -33,7 +33,7 @@ class _LotoPageState extends State<LotoPage> {
                         Shadow(
                           offset: Offset(2.0, 2.0),
                           blurRadius: 3.0,
-                          color: Colors.black.withValues(red: 0.5),
+                          color: Colors.black.withValues(alpha: 0.8),
                         ),
                       ],
                     ),

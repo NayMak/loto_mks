@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                         Shadow(
                           offset: Offset(2.0, 2.0),
                           blurRadius: 3.0,
-                          color: Colors.black.withValues(red: 0.5),
+                          color: Colors.black.withValues(alpha: 0.8),
                         ),
                       ],
                     ),
@@ -117,8 +117,8 @@ class HomePage extends StatelessWidget {
                                         Shadow(
                                           offset: Offset(1, 1),
                                           blurRadius: 1.0,
-                                          color:
-                                              Colors.black.withValues(red: 0.3),
+                                          color: Colors.black
+                                              .withValues(alpha: 0.8),
                                         ),
                                       ],
                                     ),
