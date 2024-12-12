@@ -18,8 +18,8 @@ class CircleButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        elevation: 0,
-        shadowColor: Colors.transparent,
+        elevation: 5,
+        shadowColor: Colors.black.withOpacity(0.5),
         shape: CircleBorder(),
         padding: EdgeInsets.all(24),
         backgroundColor: Colors.grey,
