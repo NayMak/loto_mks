@@ -29,7 +29,7 @@ class CircleButton extends StatelessWidget {
         disabledBackgroundColor: Colors.grey.shade300,
         disabledForegroundColor: Colors.white,
       ),
-      child: Icon(
+      child: FaIcon(
         icon,
         size: 32,
         color: disable ? Colors.grey : Colors.white,
