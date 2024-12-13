@@ -137,22 +137,22 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
-                              /*
-                              Ajout du bouton pour activer ou désactiver la musique de victoire
+
+                              //Ajout du bouton pour activer ou désactiver la musique de victoire
 
                               SizedBox(height: 16),
                               Visibility(
                                 visible: provider.isGameStarted,
                                 child: CircleButton(
                                   icon: provider.isSoundOn
-                                      ? FontAwesomeIcons.volumeHigh
-                                      : FontAwesomeIcons.volumeXmark,
+                                      ? Icons.volume_up
+                                      : Icons.volume_off,
                                   onPressed: () {
                                     provider.soundOption();
                                   },
                                 ),
                               ),
-                               */
+
                               SizedBox(height: 32),
                               Visibility(
                                 visible: provider.isGameStarted,
