@@ -60,7 +60,7 @@ class _LotoPageState extends State<LotoPage> {
                               child: provider.currentCard == null
                                   ? Center(
                                       child: Text(
-                                        'Lancer le jeu et tirer une carte pour commencer',
+                                        'Lancer le jeu pour commencer à tirer les cartes',
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
