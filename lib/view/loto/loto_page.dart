@@ -62,6 +62,7 @@ class _LotoPageState extends State<LotoPage> {
                                   ? Center(
                                       child: Text(
                                         'Lancer le jeu pour commencer à tirer les cartes',
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
