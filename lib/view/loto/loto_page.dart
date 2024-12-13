@@ -144,7 +144,7 @@ class _LotoPageState extends State<LotoPage> {
                                   icon: FontAwesomeIcons.b,
                                   onPressed: () {
                                     final player = AudioPlayer()
-                                      ..setUrl('assets/bingo/bingo.mp3');
+                                      ..setUrl('assets/audio/bingo.mp3');
 
                                     showDialog(
                                       context: context,
@@ -155,7 +155,6 @@ class _LotoPageState extends State<LotoPage> {
                                           backgroundColor: Colors.transparent,
                                           scrollable: true,
                                           content: Column(
-                                            spacing: 8,
                                             children: [
                                               Image.asset(
                                                 'assets/bingo/bingo.png',
