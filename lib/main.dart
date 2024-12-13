@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loto_mks/view/loto/loto_page.dart';
+import 'package:loto_mks/view/home/home_page.dart';
 
 void main() {
   runApp(const LotoApp());
@@ -16,7 +16,7 @@ class LotoApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: false,
       ),
-      home: const LotoPage(),
+      home: const HomePage(),
     );
   }
 }
