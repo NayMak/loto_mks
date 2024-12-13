@@ -149,7 +149,6 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
-
                               SizedBox(height: 32),
                               Visibility(
                                 visible: provider.isGameStarted,
