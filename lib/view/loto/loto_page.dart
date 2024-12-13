@@ -137,6 +137,9 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
+                              /*
+                              Ajout du bouton pour activer ou désactiver la musique de victoire
+
                               SizedBox(height: 16),
                               Visibility(
                                 visible: provider.isGameStarted,
@@ -149,6 +152,7 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
+                               */
                               SizedBox(height: 32),
                               Visibility(
                                 visible: provider.isGameStarted,
