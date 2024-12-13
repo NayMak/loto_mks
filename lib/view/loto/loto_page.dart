@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
 import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:provider/provider.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LotoPage extends StatefulWidget {
   const LotoPage({super.key});
@@ -132,6 +133,47 @@ class _LotoPageState extends State<LotoPage> {
                                   icon: FontAwesomeIcons.arrowLeft,
                                   onPressed: () {
                                     Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 32),
+                              Visibility(
+                                visible: provider.isGameStarted,
+                                child: CircleButton(
+                                  icon: FontAwesomeIcons.b,
+                                  onPressed: () {
+                                    final player = AudioPlayer()
+                                      ..setUrl('assets/bingo/bingo.mp3');
+
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        player.play();
+                                        return AlertDialog(
+                                          backgroundColor: Colors.transparent,
+                                          scrollable: true,
+                                          content: Column(
+                                            spacing: 8,
+                                            children: [
+                                              Image.asset(
+                                                'assets/bingo/bingo.png',
+                                              ),
+                                              CircleButton(
+                                                icon: FontAwesomeIcons.house,
+                                                onPressed: () {
+                                                  player.stop();
+                                                  Navigator.popUntil(
+                                                    context,
+                                                    (route) => route.isFirst,
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
                                   },
                                 ),
                               ),
