@@ -137,20 +137,36 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
+                              SizedBox(height: 16),
+                              Visibility(
+                                visible: provider.isGameStarted,
+                                child: CircleButton(
+                                  icon: provider.isSoundOn
+                                      ? FontAwesomeIcons.volumeHigh
+                                      : FontAwesomeIcons.volumeXmark,
+                                  onPressed: () {
+                                    provider.soundOption();
+                                  },
+                                ),
+                              ),
                               SizedBox(height: 32),
                               Visibility(
                                 visible: provider.isGameStarted,
                                 child: CircleButton(
                                   icon: FontAwesomeIcons.b,
+                                  backgroundColor: Colors.redAccent,
                                   onPressed: () {
-                                    final player = AudioPlayer()
-                                      ..setUrl('assets/audio/bingo.mp3');
-
+                                    if (provider.isSoundOn) {
+                                      provider.player = AudioPlayer()
+                                        ..setUrl('assets/audio/bingo_win.mp3');
+                                    }
                                     showDialog(
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (BuildContext context) {
-                                        player.play();
+                                        if (provider.isSoundOn) {
+                                          provider.player!.play();
+                                        }
                                         return AlertDialog(
                                           backgroundColor: Colors.transparent,
                                           scrollable: true,
@@ -162,7 +178,9 @@ class _LotoPageState extends State<LotoPage> {
                                               CircleButton(
                                                 icon: FontAwesomeIcons.house,
                                                 onPressed: () {
-                                                  player.stop();
+                                                  if (provider.isSoundOn) {
+                                                    provider.player!.stop();
+                                                  }
                                                   Navigator.popUntil(
                                                     context,
                                                     (route) => route.isFirst,

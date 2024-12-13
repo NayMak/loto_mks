@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:loto_mks/models/loto_card.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LotoProvider extends ChangeNotifier {
   int gridViewAxisCount = 3;
   bool isGameStarted = false;
   LotoCard? currentCard;
+  bool isSoundOn = true;
+  AudioPlayer? player;
   List<LotoCard> remainingCards = [];
   List<LotoCard> announcedCards = [];
 
@@ -54,6 +57,11 @@ class LotoProvider extends ChangeNotifier {
 
   updateGridViewAxisCount(int value) {
     gridViewAxisCount = value;
+    notifyListeners();
+  }
+
+  void soundOption() {
+    isSoundOn = !isSoundOn;
     notifyListeners();
   }
 }
