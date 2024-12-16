@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
 import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:provider/provider.dart';
+import 'package:just_audio/just_audio.dart';
 
 class LotoPage extends StatefulWidget {
   const LotoPage({super.key});
@@ -61,6 +62,7 @@ class _LotoPageState extends State<LotoPage> {
                                   ? Center(
                                       child: Text(
                                         'Lancer le jeu pour commencer à tirer les cartes',
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -132,6 +134,64 @@ class _LotoPageState extends State<LotoPage> {
                                   icon: FontAwesomeIcons.arrowLeft,
                                   onPressed: () {
                                     Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              Visibility(
+                                visible: provider.isGameStarted,
+                                child: CircleButton(
+                                  icon: provider.isSoundOn
+                                      ? Icons.volume_up
+                                      : Icons.volume_off,
+                                  onPressed: () {
+                                    provider.soundOption();
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 32),
+                              Visibility(
+                                visible: provider.isGameStarted,
+                                child: CircleButton(
+                                  icon: FontAwesomeIcons.b,
+                                  backgroundColor: Colors.redAccent,
+                                  onPressed: () {
+                                    if (provider.isSoundOn) {
+                                      provider.player = AudioPlayer()
+                                        ..setUrl('assets/audio/bingo_win.mp3');
+                                    }
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        if (provider.isSoundOn) {
+                                          provider.player!.play();
+                                        }
+                                        return AlertDialog(
+                                          backgroundColor: Colors.transparent,
+                                          scrollable: true,
+                                          content: Column(
+                                            children: [
+                                              Image.asset(
+                                                'assets/bingo/bingo.png',
+                                              ),
+                                              CircleButton(
+                                                icon: FontAwesomeIcons.house,
+                                                onPressed: () {
+                                                  if (provider.isSoundOn) {
+                                                    provider.player!.stop();
+                                                  }
+                                                  Navigator.popUntil(
+                                                    context,
+                                                    (route) => route.isFirst,
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
                                   },
                                 ),
                               ),
