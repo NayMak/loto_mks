@@ -1,0 +1,33 @@
+name: Flutter Code Verification CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  flutter-verification:
+    name: Flutter Code Verification
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 3.27.0
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Analyze Dart code
+      run: flutter analyze
+
+    - name: Check Dart code formatting
+      run: |
+        dart format --set-exit-if-changed .
+
+    - name: Run tests
+      run: flutter test

@@ -7,7 +7,7 @@ on:
 
 jobs:
   bump-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
@@ -36,13 +36,13 @@ jobs:
 
       - name: Commit and push updated version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pubspec.yaml
           git commit -m "chore: bump version to $NEW_VERSION"
-          git push
+          git push https://x-access-token:${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/${{ github.repository }} main
 
       - name: Flutter pub get
         run: flutter pub get
