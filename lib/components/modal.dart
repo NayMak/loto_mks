@@ -7,8 +7,8 @@ class Modal extends StatefulWidget {
   final String? subtitle;
 
   const Modal({
-    super.key,
     required this.title,
+    super.key,
     this.subtitle,
   });
 
@@ -19,65 +19,67 @@ class Modal extends StatefulWidget {
 class _ModalState extends State<Modal> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<LotoProvider>(builder: (context, provider, Widget? child) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        backgroundColor: Colors.tealAccent,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
+    return Consumer<LotoProvider>(
+      builder: (context, provider, Widget? child) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-        ),
-        content: Text(
-          widget.subtitle ?? '',
-          style: TextStyle(
-            color: Colors.grey,
+          backgroundColor: Colors.tealAccent,
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
           ),
-        ),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.redAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+          content: Text(
+            widget.subtitle ?? '',
+            style: TextStyle(
+              color: Colors.grey,
             ),
-            child: Text(
-              'Non',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
           ),
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.greenAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-            ),
-            child: Text(
-              'Oui',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+              child: Text(
+                'Non',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            onPressed: () {
-              provider.init();
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    });
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.greenAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text(
+                'Oui',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                provider.init();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
