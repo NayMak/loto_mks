@@ -91,15 +91,24 @@ class _LotoPageState extends State<LotoPage> {
                         ),
                         Column(
                           mainAxisAlignment: provider.isGameStarted
-                              ? MainAxisAlignment.spaceAround
+                              ? MainAxisAlignment.spaceEvenly
                               : MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Column(
-                              children: [
-                                Visibility(
-                                  visible: !provider.isGameStarted,
-                                  child: CircleButton(
+                            Visibility(
+                              visible: provider.isGameStarted,
+                              child: CircleButton(
+                                icon: FontAwesomeIcons.fileArrowUp,
+                                onPressed: () {
+                                  provider.selectRandomCard();
+                                },
+                              ),
+                            ),
+                            Visibility(
+                              visible: !provider.isGameStarted,
+                              child: Column(
+                                children: [
+                                  CircleButton(
                                     icon: FontAwesomeIcons.circlePlay,
                                     onPressed: () {
                                       provider
@@ -108,41 +117,29 @@ class _LotoPageState extends State<LotoPage> {
                                         ..selectRandomCard();
                                     },
                                   ),
-                                ),
-                                SizedBox(height: 16),
-                                Visibility(
-                                  visible: provider.isGameStarted,
-                                  child: CircleButton(
-                                    icon: FontAwesomeIcons.fileArrowUp,
-                                    onPressed: () {
-                                      provider.selectRandomCard();
-                                    },
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: !provider.isGameStarted,
-                                  child: CircleButton(
+                                  SizedBox(height: 16),
+                                  CircleButton(
                                     icon: FontAwesomeIcons.arrowLeft,
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
                                   ),
+                                  /*
+                              SizedBox(height: 16),
+                              Visibility(
+                                visible: provider.isGameStarted,
+                                child: CircleButton(
+                                  icon: provider.isSoundOn
+                                      ? Icons.volume_up
+                                      : Icons.volume_off,
+                                  onPressed: () {
+                                    provider.soundOption();
+                                  },
                                 ),
-                                /*
-                            SizedBox(height: 16),
-                            Visibility(
-                              visible: provider.isGameStarted,
-                              child: CircleButton(
-                                icon: provider.isSoundOn
-                                    ? Icons.volume_up
-                                    : Icons.volume_off,
-                                onPressed: () {
-                                  provider.soundOption();
-                                },
                               ),
-                            ),
-                            */
-                              ],
+                              */
+                                ],
+                              ),
                             ),
                             Visibility(
                               visible: provider.isGameStarted,
