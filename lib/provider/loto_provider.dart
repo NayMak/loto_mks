@@ -64,4 +64,10 @@ class LotoProvider extends ChangeNotifier {
     isSoundOn = !isSoundOn;
     notifyListeners();
   }
+
+  void refreshGame() {
+    init();
+    startGame();
+    isGameStarted = false;
+  }
 }
