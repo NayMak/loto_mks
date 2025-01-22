@@ -72,7 +72,7 @@ class _ModalState extends State<Modal> {
               ),
             ),
             onPressed: () {
-              provider.refreshGame();
+              provider.init();
               Navigator.pop(context);
             },
           ),
