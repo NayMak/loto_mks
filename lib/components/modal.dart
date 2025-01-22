@@ -40,10 +40,17 @@ class _ModalState extends State<Modal> {
         ),
         actions: [
           TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
             child: Text(
               'Non',
               style: TextStyle(
                 color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
             onPressed: () {
@@ -51,10 +58,17 @@ class _ModalState extends State<Modal> {
             },
           ),
           TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.greenAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
             child: Text(
               'Oui',
               style: TextStyle(
                 color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
             onPressed: () {
