@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loto_mks/components/modal.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
 import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:provider/provider.dart';
@@ -91,52 +92,45 @@ class _LotoPageState extends State<LotoPage> {
                             ),
                           ),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: provider.isGameStarted
+                                ? MainAxisAlignment.spaceAround
+                                : MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Visibility(
-                                visible: !provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.circlePlay,
-                                  onPressed: () {
-                                    provider
-                                      ..init()
-                                      ..startGame()
-                                      ..selectRandomCard();
-                                  },
-                                ),
-                              ),
-                              Visibility(
-                                visible: provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.fileArrowUp,
-                                  onPressed: () {
-                                    provider.selectRandomCard();
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: 16),
-                              Visibility(
-                                visible: provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.arrowRotateRight,
-                                  onPressed: () {
-                                    provider
-                                      ..init()
-                                      ..startGame()
-                                      ..isGameStarted = false;
-                                  },
-                                ),
-                              ),
-                              Visibility(
-                                visible: !provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.arrowLeft,
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
+                              Column(
+                                children: [
+                                  Visibility(
+                                    visible: !provider.isGameStarted,
+                                    child: CircleButton(
+                                      icon: FontAwesomeIcons.circlePlay,
+                                      onPressed: () {
+                                        provider
+                                          ..init()
+                                          ..startGame()
+                                          ..selectRandomCard();
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: 16),
+                                  Visibility(
+                                    visible: provider.isGameStarted,
+                                    child: CircleButton(
+                                      icon: FontAwesomeIcons.fileArrowUp,
+                                      onPressed: () {
+                                        provider.selectRandomCard();
+                                      },
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: !provider.isGameStarted,
+                                    child: CircleButton(
+                                      icon: FontAwesomeIcons.arrowLeft,
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                  /*
                               SizedBox(height: 16),
                               Visibility(
                                 visible: provider.isGameStarted,
@@ -149,50 +143,78 @@ class _LotoPageState extends State<LotoPage> {
                                   },
                                 ),
                               ),
-                              SizedBox(height: 32),
+                              */
+                                ],
+                              ),
                               Visibility(
                                 visible: provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.b,
-                                  backgroundColor: Colors.redAccent,
-                                  onPressed: () {
-                                    if (provider.isSoundOn) {
-                                      provider.player = AudioPlayer()
-                                        ..setUrl('assets/audio/bingo_win.mp3');
-                                    }
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
+                                child: Column(
+                                  children: [
+                                    CircleButton(
+                                      icon: FontAwesomeIcons.b,
+                                      backgroundColor: Colors.redAccent,
+                                      onPressed: () {
                                         if (provider.isSoundOn) {
-                                          provider.player!.play();
+                                          provider.player = AudioPlayer()
+                                            ..setUrl(
+                                              'assets/audio/bingo_win.mp3',
+                                            );
                                         }
-                                        return AlertDialog(
-                                          backgroundColor: Colors.transparent,
-                                          scrollable: true,
-                                          content: Column(
-                                            children: [
-                                              Image.asset(
-                                                'assets/bingo/bingo.png',
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            if (provider.isSoundOn) {
+                                              provider.player!.play();
+                                            }
+                                            return AlertDialog(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              scrollable: true,
+                                              content: Column(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/bingo/bingo.png',
+                                                  ),
+                                                  CircleButton(
+                                                    icon:
+                                                        FontAwesomeIcons.house,
+                                                    onPressed: () {
+                                                      if (provider.isSoundOn) {
+                                                        provider.player!.stop();
+                                                      }
+                                                      Navigator.popUntil(
+                                                        context,
+                                                        (route) =>
+                                                            route.isFirst,
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
                                               ),
-                                              CircleButton(
-                                                icon: FontAwesomeIcons.house,
-                                                onPressed: () {
-                                                  if (provider.isSoundOn) {
-                                                    provider.player!.stop();
-                                                  }
-                                                  Navigator.popUntil(
-                                                    context,
-                                                    (route) => route.isFirst,
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          ),
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
+                                    ),
+                                    SizedBox(height: 16),
+                                    CircleButton(
+                                      icon: FontAwesomeIcons.arrowRotateRight,
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Modal(
+                                              title:
+                                                  'Souhaitez-vous démarrer une nouvelle partie ?',
+                                              subtitle:
+                                                  'Les numéros tirées lors de la partie en cours seront réinitialisés.',
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
