@@ -20,7 +20,7 @@ class _ModalState extends State<Modal> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LotoProvider>(
-      builder: (context, provider, Widget? child) {
+      builder: (context, provider, child) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
