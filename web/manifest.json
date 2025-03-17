@@ -1,6 +1,6 @@
 {
-    "name": "loto_mks",
-    "short_name": "loto_mks",
+    "name": "Loto MKS",
+    "short_name": "LOTO MKS",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
