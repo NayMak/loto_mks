@@ -13,7 +13,6 @@ class LotoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Loto MKS',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: false,
       ),
       home: const HomePage(),
