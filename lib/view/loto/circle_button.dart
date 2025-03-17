@@ -5,11 +5,13 @@ class CircleButton extends StatelessWidget {
   final IconData icon;
   final Function() onPressed;
   final bool disable;
+  final Color? backgroundColor;
 
   const CircleButton({
     required this.icon,
     required this.onPressed,
     this.disable = false,
+    this.backgroundColor,
     super.key,
   });
 
@@ -22,7 +24,7 @@ class CircleButton extends StatelessWidget {
         shadowColor: Colors.black.withValues(alpha: 0.5),
         shape: CircleBorder(),
         padding: EdgeInsets.all(24),
-        backgroundColor: Colors.grey,
+        backgroundColor: backgroundColor ?? Colors.grey,
         foregroundColor: Colors.white,
         disabledBackgroundColor: Colors.grey.shade300,
         disabledForegroundColor: Colors.white,

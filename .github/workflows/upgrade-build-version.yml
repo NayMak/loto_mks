@@ -1,0 +1,48 @@
+name: Bump Version on Merge
+
+on:
+  push:
+    branches:
+      - main  # Déclenche l'action uniquement sur les merges vers la branche "main"
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.27.0
+
+      - name: Extract current version from pubspec.yaml
+        id: extract-version
+        run: |
+          CURRENT_VERSION=$(grep '^version: ' pubspec.yaml | sed 's/version: //')
+          BASE_VERSION=${CURRENT_VERSION%%+*}
+          BUILD_NUMBER=${CURRENT_VERSION##*+}
+          NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
+          NEW_VERSION="$BASE_VERSION+$NEW_BUILD_NUMBER"
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Update version in pubspec.yaml
+        run: |
+          sed -i "s/^version: .*/version: $NEW_VERSION/" pubspec.yaml
+          cat pubspec.yaml
+
+      - name: Commit and push updated version
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pubspec.yaml
+          git commit -m "chore: bump version to $NEW_VERSION"
+          git push https://x-access-token:${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/${{ github.repository }} main
+
+      - name: Flutter pub get
+        run: flutter pub get
