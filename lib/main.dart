@@ -11,7 +11,7 @@ class LotoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Loto MKS',
+      title: 'Bingo MKS',
       theme: ThemeData(
         useMaterial3: false,
       ),
