@@ -17,7 +17,7 @@ class CircleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton.filled(
       onPressed: disable ? null : onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 5,
@@ -29,7 +29,7 @@ class CircleButton extends StatelessWidget {
         disabledBackgroundColor: Colors.grey.shade300,
         disabledForegroundColor: Colors.white,
       ),
-      child: FaIcon(
+      icon: FaIcon(
         icon,
         size: 32,
         color: disable ? Colors.grey : Colors.white,
