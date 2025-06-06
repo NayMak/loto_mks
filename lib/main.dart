@@ -16,6 +16,7 @@ class LotoApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

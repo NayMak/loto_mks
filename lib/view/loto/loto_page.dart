@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loto_mks/components/floating_toolbar.dart';
 import 'package:loto_mks/components/modal.dart';
+import 'package:loto_mks/models/bingo_button.dart';
+import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
-import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:provider/provider.dart';
-import 'package:just_audio/just_audio.dart';
 
 class LotoPage extends StatefulWidget {
   const LotoPage({super.key});
@@ -92,7 +93,8 @@ class _LotoPageState extends State<LotoPage> {
                                       )
                                     : Image(
                                         image: AssetImage(
-                                            provider.currentCard!.asset),
+                                          provider.currentCard!.asset,
+                                        ),
                                       ),
                               ),
                             ),
@@ -121,131 +123,61 @@ class _LotoPageState extends State<LotoPage> {
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 30,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 10,
-                              offset: Offset(0, 4),
+                  FloatingToolbar(
+                    buttons: !provider.isGameStarted
+                        ? [
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.circlePlay,
+                              onPressed: () {
+                                provider
+                                  ..init()
+                                  ..startGame()
+                                  ..selectRandomCard();
+                              },
+                            ),
+                          ]
+                        : [
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.arrowRotateRight,
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      ChangeNotifierProvider.value(
+                                    value: provider,
+                                    child: Modal(
+                                      title:
+                                          'Souhaitez-vous démarrer une nouvelle partie ?',
+                                      subtitle:
+                                          'Les numéros tirées lors de la partie en cours seront réinitialisés.',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.fileArrowUp,
+                              onPressed: () => provider.selectRandomCard(),
+                            ),
+                            ToolbarButtonData(
+                              icon: provider.gridViewAxisCount == 3
+                                  ? FontAwesomeIcons.tableCellsLarge
+                                  : FontAwesomeIcons.tableCells,
+                              onPressed: () {
+                                final newCount =
+                                    provider.gridViewAxisCount == 3 ? 5 : 3;
+                                provider.updateGridViewAxisCount(newCount);
+                              },
+                              color: Colors.blue,
                             ),
                           ],
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (!provider.isGameStarted) ...[
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(FontAwesomeIcons.circlePlay),
-                                onPressed: () {
-                                  provider
-                                    ..init()
-                                    ..startGame()
-                                    ..selectRandomCard();
-                                },
-                              ),
-                            ] else ...[
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(FontAwesomeIcons.fileArrowUp),
-                                onPressed: () => provider.selectRandomCard(),
-                              ),
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(FontAwesomeIcons.b),
-                                color: Colors.redAccent,
-                                onPressed: () {
-                                  if (provider.isSoundOn) {
-                                    provider.player = AudioPlayer()
-                                      ..setUrl('assets/audio/bingo_win.mp3');
-                                  }
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      if (provider.isSoundOn) {
-                                        provider.player!.play();
-                                      }
-                                      return AlertDialog(
-                                        backgroundColor: Colors.transparent,
-                                        content: Column(
-                                          children: [
-                                            Image.asset(
-                                              'assets/bingo/bingo.png',
-                                            ),
-                                            CircleButton(
-                                              icon: FontAwesomeIcons.house,
-                                              onPressed: () {
-                                                if (provider.isSoundOn) {
-                                                  provider.player!.stop();
-                                                }
-                                                Navigator.popUntil(
-                                                  context,
-                                                  (route) => route.isFirst,
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(FontAwesomeIcons.arrowRotateRight),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        ChangeNotifierProvider.value(
-                                      value: provider,
-                                      child: Modal(
-                                        title:
-                                            'Souhaitez-vous démarrer une nouvelle partie ?',
-                                        subtitle:
-                                            'Les numéros tirées lors de la partie en cours seront réinitialisés.',
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(
-                                  provider.gridViewAxisCount == 3
-                                      ? FontAwesomeIcons.tableCellsLarge
-                                      : FontAwesomeIcons.tableCells,
-                                ),
-                                color: Colors.blueAccent,
-                                onPressed: () {
-                                  final newCount =
-                                      provider.gridViewAxisCount == 3 ? 5 : 3;
-                                  provider.updateGridViewAxisCount(newCount);
-                                },
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),
             );
           },
         ),
+        floatingActionButton: BingoButton(),
       ),
     );
   }
