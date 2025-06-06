@@ -34,8 +34,14 @@ class _LotoPageState extends State<LotoPage> {
               ],
             ),
           ),
+          leading: IconButton(
+            iconSize: 30,
+            icon: Icon(FontAwesomeIcons.arrowLeft),
+            onPressed: () => Navigator.pop(context),
+          ),
           backgroundColor: Color(0xFFCFD8DC),
           centerTitle: true,
+          scrolledUnderElevation: 0,
         ),
         body: Consumer<LotoProvider>(
           builder: (context, provider, Widget? child) {
@@ -65,34 +71,31 @@ class _LotoPageState extends State<LotoPage> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             elevation: 4,
-                            child: provider.currentCard == null
-                                ? Center(
-                                    child: Text(
-                                      'Lancer le jeu pour commencer à tirer les cartes',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color(0xFF1A237E),
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black.withBlue(1),
-                                            offset: Offset(1, 1),
-                                            blurRadius: 2,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Image(
-                                        image: AssetImage(
-                                          provider.currentCard!.asset,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Center(
+                                child: provider.currentCard == null
+                                    ? Text(
+                                        'Lancer le jeu pour commencer à tirer les cartes',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Color(0xFF1A237E),
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black.withBlue(1),
+                                              offset: Offset(1, 1),
+                                              blurRadius: 2,
+                                            ),
+                                          ],
                                         ),
+                                      )
+                                    : Image(
+                                        image: AssetImage(
+                                            provider.currentCard!.asset),
                                       ),
-                                    ),
-                                  ),
+                              ),
+                            ),
                           ),
                         ),
                         Expanded(
@@ -103,51 +106,14 @@ class _LotoPageState extends State<LotoPage> {
                             ),
                             elevation: 4,
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CircleButton(
-                                        icon: FontAwesomeIcons.tableCellsLarge,
-                                        onPressed: () {
-                                          provider.updateGridViewAxisCount(3);
-                                        },
-                                        disable:
-                                            provider.gridViewAxisCount == 3,
-                                      ),
-                                      SizedBox(width: 16),
-                                      CircleButton(
-                                        icon: FontAwesomeIcons.tableCells,
-                                        onPressed: () {
-                                          provider.updateGridViewAxisCount(5);
-                                        },
-                                        disable:
-                                            provider.gridViewAxisCount == 5,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 16),
-                                  Expanded(
-                                    child: GridView.count(
-                                      primary: false,
-                                      padding: const EdgeInsets.all(8),
-                                      crossAxisSpacing: 4,
-                                      mainAxisSpacing: 4,
-                                      crossAxisCount:
-                                          provider.gridViewAxisCount,
-                                      children: [
-                                        ...provider.announcedCards.map((card) {
-                                          return Image(
-                                            image: AssetImage(card.asset),
-                                          );
-                                        }),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                              padding: const EdgeInsets.all(16.0),
+                              child: GridView.count(
+                                crossAxisSpacing: 4,
+                                mainAxisSpacing: 4,
+                                crossAxisCount: provider.gridViewAxisCount,
+                                children: provider.announcedCards.map((card) {
+                                  return Image(image: AssetImage(card.asset));
+                                }).toList(),
                               ),
                             ),
                           ),
@@ -187,11 +153,6 @@ class _LotoPageState extends State<LotoPage> {
                                     ..startGame()
                                     ..selectRandomCard();
                                 },
-                              ),
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(FontAwesomeIcons.arrowLeft),
-                                onPressed: () => Navigator.pop(context),
                               ),
                             ] else ...[
                               IconButton(
@@ -258,6 +219,20 @@ class _LotoPageState extends State<LotoPage> {
                                       ),
                                     ),
                                   );
+                                },
+                              ),
+                              IconButton(
+                                iconSize: 30,
+                                icon: Icon(
+                                  provider.gridViewAxisCount == 3
+                                      ? FontAwesomeIcons.tableCellsLarge
+                                      : FontAwesomeIcons.tableCells,
+                                ),
+                                color: Colors.blueAccent,
+                                onPressed: () {
+                                  final newCount =
+                                      provider.gridViewAxisCount == 3 ? 5 : 3;
+                                  provider.updateGridViewAxisCount(newCount);
                                 },
                               ),
                             ],

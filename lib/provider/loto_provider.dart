@@ -60,11 +60,6 @@ class LotoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleGridViewAxisCount() {
-    gridViewAxisCount = gridViewAxisCount == 3 ? 5 : 3;
-    notifyListeners();
-  }
-
   void soundOption() {
     isSoundOn = !isSoundOn;
     notifyListeners();
