@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loto_mks/components/floating_toolbar.dart';
 import 'package:loto_mks/components/modal.dart';
 import 'package:loto_mks/models/bingo_button.dart';
@@ -23,16 +24,9 @@ class _LotoPageState extends State<LotoPage> {
         appBar: AppBar(
           title: Text(
             'JEU DU BINGO !',
-            style: TextStyle(
-              fontSize: 24,
+            style: GoogleFonts.luckiestGuy(
+              fontSize: 32,
               color: Color(0xFF1A237E),
-              shadows: [
-                Shadow(
-                  color: Colors.black.withBlue(1),
-                  offset: Offset(1, 1),
-                  blurRadius: 2,
-                ),
-              ],
             ),
           ),
           leading: IconButton(
@@ -79,16 +73,9 @@ class _LotoPageState extends State<LotoPage> {
                                     ? Text(
                                         'Lancer le jeu pour commencer à tirer les cartes',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.luckiestGuy(
                                           fontSize: 20,
                                           color: Color(0xFF1A237E),
-                                          shadows: [
-                                            Shadow(
-                                              color: Colors.black.withBlue(1),
-                                              offset: Offset(1, 1),
-                                              blurRadius: 2,
-                                            ),
-                                          ],
                                         ),
                                       )
                                     : Image(
@@ -154,6 +141,7 @@ class _LotoPageState extends State<LotoPage> {
                                   ),
                                 );
                               },
+                              color: Colors.redAccent,
                             ),
                             ToolbarButtonData(
                               icon: FontAwesomeIcons.fileArrowUp,
