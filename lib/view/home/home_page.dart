@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loto_mks/components/floating_toolbar.dart';
+import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
-import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:loto_mks/view/loto/loto_page.dart' show LotoPage;
 import 'package:provider/provider.dart';
 
@@ -13,170 +15,198 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.tealAccent,
       body: ChangeNotifierProvider.value(
         value: LotoProvider(),
         child: Consumer<LotoProvider>(
           builder: (BuildContext context, provider, Widget? child) {
-            return Center(
-              child: Column(
-                children: [
-                  Text(
-                    'JEU DU BINGO !',
-                    style: TextStyle(
-                      fontSize: 96,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 3.0,
-                          color: Colors.black.withValues(alpha: 0.8),
-                        ),
-                      ],
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFCFD8DC),
+                    Color(0xFF455A64),
+                    Color(0xFF263238),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    Text(
+                      'JEU DU BINGO !',
+                      style: GoogleFonts.luckiestGuy(
+                        fontSize: 96,
+                        color: Color(0xFF1A237E),
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  Divider(
-                    color: Colors.grey.withValues(alpha: 0.3),
-                    thickness: 2,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: SingleChildScrollView(
+                    SizedBox(height: 16),
+                    Card(
+                      color: Color(0xFFECEFF1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
-                          spacing: 16,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.tealAccent,
-                                    Colors.greenAccent,
-                                  ],
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.2),
-                                    spreadRadius: 0,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                spacing: 8,
-                                children: [
-                                  Text(
-                                    'Règle du jeu :',
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      shadows: [
-                                        Shadow(
-                                          offset: Offset(1, 1),
-                                          blurRadius: 1.0,
-                                          color: Colors.black
-                                              .withValues(alpha: 0.1),
-                                        ),
-                                      ],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    "L'objectif du jeu est d'être le premier à obtenir tous les numéros jusqu'à remplir le carton entier. Lorsque le carton est rempli, crier :",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      shadows: [
-                                        Shadow(
-                                          offset: Offset(1, 1),
-                                          blurRadius: 1.0,
-                                          color: Colors.black
-                                              .withValues(alpha: 0.1),
-                                        ),
-                                      ],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'Bingo !',
-                                    style: TextStyle(
-                                      fontSize: 58,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      shadows: [
-                                        Shadow(
-                                          offset: Offset(1, 1),
-                                          blurRadius: 1.0,
-                                          color: Colors.black
-                                              .withValues(alpha: 0.8),
-                                        ),
-                                      ],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
                             Text(
-                              'Exemple de carton :',
-                              style: TextStyle(
+                              'Règle du jeu :',
+                              style: GoogleFonts.luckiestGuy(
                                 fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(1, 1),
-                                    blurRadius: 1.0,
-                                    color: Colors.black.withValues(alpha: 0.1),
-                                  ),
-                                ],
+                                color: Color(0xFF1A237E),
                               ),
+                              textAlign: TextAlign.center,
                             ),
-                            Image.asset(
-                              'assets/grids/grid-exemple.png',
-                            ),
-                            CircleButton(
-                              icon: FontAwesomeIcons.circlePlay,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LotoPage(),
-                                  ),
-                                );
-                              },
-                            ),
+                            SizedBox(height: 8),
                             Text(
-                              'Jeu réalisé par Émile Makusa et Cedric Willem',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(1, 1),
-                                    blurRadius: 1.0,
-                                    color: Colors.black.withValues(alpha: 0.1),
-                                  ),
-                                ],
+                              "L'objectif du jeu est d'être le premier à obtenir tous les numéros jusqu'à remplir le carton entier. Lorsque le carton est rempli, crier :",
+                              style: GoogleFonts.luckiestGuy(
+                                fontSize: 24,
+                                color: Color(0xFF1A237E),
                               ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Bingo !',
+                              style: GoogleFonts.luckiestGuy(
+                                fontSize: 58,
+                                color: Color(0xFF1A237E),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 16),
+
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Exemple de carton :',
+                                        style: GoogleFonts.luckiestGuy(
+                                          fontSize: 24,
+                                          color: Color(0xFF1A237E),
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(height: 16),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        elevation: 4,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                            'assets/grids/grid-exemple.png',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      minimumSize: Size(0, 0),
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Fermer',
+                                        style: GoogleFonts.luckiestGuy(
+                                          fontSize: 14,
+                                          color: Color(0xFF1A237E),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFCFD8DC),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Voir un exemple de carton',
+                            style: GoogleFonts.luckiestGuy(
+                              fontSize: 20,
+                              color: Color(0xFF1A237E),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 16),
+
+                    FloatingToolbar(
+                      buttons: [
+                        ToolbarButtonData(
+                          icon: FontAwesomeIcons.circlePlay,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LotoPage(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 16),
+                    Text(
+                      'Jeu réalisé par Émile Makusa et Cedric Willem',
+                      style: GoogleFonts.luckiestGuy(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             );
           },

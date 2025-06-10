@@ -165,7 +165,15 @@ class _LotoPageState extends State<LotoPage> {
             );
           },
         ),
-        floatingActionButton: BingoButton(),
+        floatingActionButton: Consumer<LotoProvider>(
+          builder: (context, provider, child) {
+            if (provider.isGameStarted) {
+              return BingoButton();
+            } else {
+              return SizedBox.shrink();
+            }
+          },
+        ),
       ),
     );
   }
