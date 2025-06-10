@@ -86,7 +86,6 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
@@ -133,11 +132,7 @@ class HomePage extends StatelessWidget {
                                       Navigator.of(context).pop();
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 8),
-                                      minimumSize: Size(0, 0),
-                                      tapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      padding: EdgeInsets.all(8.0),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(16),
                                       ),
@@ -160,7 +155,6 @@ class HomePage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFCFD8DC),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -177,9 +171,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     SizedBox(height: 16),
-
                     FloatingToolbar(
                       buttons: [
                         ToolbarButtonData(
@@ -195,7 +187,6 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     SizedBox(height: 16),
                     Text(
                       'Jeu réalisé par Émile Makusa et Cedric Willem',
