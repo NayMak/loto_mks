@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loto_mks/components/floating_toolbar.dart';
-import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
 import 'package:loto_mks/view/loto/loto_page.dart' show LotoPage;
 import 'package:provider/provider.dart';
@@ -172,10 +170,27 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-                    FloatingToolbar(
-                      buttons: [
-                        ToolbarButtonData(
-                          icon: FontAwesomeIcons.circlePlay,
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: IconButton(
+                          padding: EdgeInsets.all(8),
+                          iconSize: 30,
+                          icon: Icon(FontAwesomeIcons.circlePlay),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -185,7 +200,7 @@ class HomePage extends StatelessWidget {
                             );
                           },
                         ),
-                      ],
+                      ),
                     ),
                     SizedBox(height: 16),
                     Text(
