@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loto_mks/components/floating_toolbar.dart';
-import 'package:loto_mks/components/modal.dart';
+import 'package:loto_mks/components/bingo_modal.dart';
 import 'package:loto_mks/models/bingo_button.dart';
 import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
@@ -132,7 +132,7 @@ class _LotoPageState extends State<LotoPage> {
                                   builder: (context) =>
                                       ChangeNotifierProvider.value(
                                     value: provider,
-                                    child: Modal(
+                                    child: BingoModal(
                                       title:
                                           'Souhaitez-vous démarrer une nouvelle partie ?',
                                       subtitle:

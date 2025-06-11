@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:loto_mks/components/floating_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
-import 'package:loto_mks/view/loto/circle_button.dart';
 import 'package:provider/provider.dart';
 
 class BingoButton extends StatelessWidget {
@@ -52,17 +52,19 @@ class BingoButton extends StatelessWidget {
                           Image.asset(
                             'assets/bingo/bingo.png',
                           ),
-                          CircleButton(
-                            icon: FontAwesomeIcons.house,
-                            onPressed: () {
-                              if (provider.isSoundOn) {
-                                provider.player!.stop();
-                              }
-                              Navigator.popUntil(
-                                context,
-                                (route) => route.isFirst,
-                              );
-                            },
+                          Center(
+                            child: FloatingButton(
+                              icon: FontAwesomeIcons.house,
+                              onPressed: () {
+                                if (provider.isSoundOn) {
+                                  provider.player!.stop();
+                                }
+                                Navigator.popUntil(
+                                  context,
+                                  (route) => route.isFirst,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
