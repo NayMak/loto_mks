@@ -184,7 +184,7 @@ class HomePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 32),
                     Text(
                       'Jeu réalisé par Émile Makusa et Cedric Willem',
                       style: GoogleFonts.luckiestGuy(
