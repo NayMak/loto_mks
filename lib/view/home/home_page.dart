@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loto_mks/components/floating_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
+import 'package:loto_mks/theme/colors.dart';
 import 'package:loto_mks/view/loto/loto_page.dart' show LotoPage;
 import 'package:provider/provider.dart';
 
@@ -22,9 +23,9 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFCFD8DC),
-                    Color(0xFF455A64),
-                    Color(0xFF263238),
+                    ThemeColors.accent,
+                    ThemeColors.lightGray,
+                    ThemeColors.darkGray,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -39,48 +40,52 @@ class HomePage extends StatelessWidget {
                       'JEU DU BINGO !',
                       style: GoogleFonts.luckiestGuy(
                         fontSize: 96,
-                        color: Color(0xFF1A237E),
+                        color: ThemeColors.primary,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 16),
-                    Card(
-                      color: Color(0xFFECEFF1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Règle du jeu :',
-                              style: GoogleFonts.luckiestGuy(
-                                fontSize: 30,
-                                color: Color(0xFF1A237E),
+                    //Permet de donner un double qui représente la taille en % que va prendre le widget
+                    FractionallySizedBox(
+                      widthFactor: 0.80,
+                      child: Card(
+                        color: ThemeColors.secondary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Règles du jeu :',
+                                style: GoogleFonts.luckiestGuy(
+                                  fontSize: 30,
+                                  color: ThemeColors.primary,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "L'objectif du jeu est d'être le premier à obtenir tous les numéros jusqu'à remplir le carton entier. Lorsque le carton est rempli, crier :",
-                              style: GoogleFonts.luckiestGuy(
-                                fontSize: 24,
-                                color: Color(0xFF1A237E),
+                              SizedBox(height: 8),
+                              Text(
+                                "L'objectif du jeu est d'être le premier à obtenir tous les numéros jusqu'à remplir le carton entier. Lorsque le carton est rempli, crier :",
+                                style: GoogleFonts.luckiestGuy(
+                                  fontSize: 24,
+                                  color: ThemeColors.primary,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Bingo !',
-                              style: GoogleFonts.luckiestGuy(
-                                fontSize: 58,
-                                color: Color(0xFF1A237E),
+                              SizedBox(height: 8),
+                              Text(
+                                'Bingo !',
+                                style: GoogleFonts.luckiestGuy(
+                                  fontSize: 58,
+                                  color: ThemeColors.primary,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -103,12 +108,13 @@ class HomePage extends StatelessWidget {
                                         'Exemple de carton :',
                                         style: GoogleFonts.luckiestGuy(
                                           fontSize: 24,
-                                          color: Color(0xFF1A237E),
+                                          color: ThemeColors.primary,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
                                       SizedBox(height: 16),
                                       Card(
+                                        color: ThemeColors.secondary,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16),
@@ -142,7 +148,7 @@ class HomePage extends StatelessWidget {
                                         'Fermer',
                                         style: GoogleFonts.luckiestGuy(
                                           fontSize: 14,
-                                          color: Color(0xFF1A237E),
+                                          color: ThemeColors.primary,
                                         ),
                                       ),
                                     ),
@@ -153,7 +159,7 @@ class HomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFCFD8DC),
+                          backgroundColor: ThemeColors.accent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -164,7 +170,7 @@ class HomePage extends StatelessWidget {
                             'Voir un exemple de carton',
                             style: GoogleFonts.luckiestGuy(
                               fontSize: 20,
-                              color: Color(0xFF1A237E),
+                              color: ThemeColors.primary,
                             ),
                           ),
                         ),

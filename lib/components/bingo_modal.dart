@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
+import 'package:loto_mks/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class BingoModal extends StatefulWidget {
@@ -26,25 +27,25 @@ class _BingoModalState extends State<BingoModal> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          backgroundColor: Color(0xFFCFD8DC),
+          backgroundColor: ThemeColors.accent,
           title: Text(
             widget.title,
             style: GoogleFonts.luckiestGuy(
               fontSize: 20,
-              color: Color(0xFF1A237E),
+              color: ThemeColors.primary,
             ),
           ),
           content: Text(
             widget.subtitle ?? '',
             style: GoogleFonts.luckiestGuy(
               fontSize: 20,
-              color: Color(0xFF1A237E),
+              color: ThemeColors.primary,
             ),
           ),
           actions: [
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF263238),
+                backgroundColor: ThemeColors.darkGray,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -62,7 +63,7 @@ class _BingoModalState extends State<BingoModal> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF1A237E),
+                backgroundColor: ThemeColors.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),

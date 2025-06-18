@@ -6,6 +6,7 @@ import 'package:loto_mks/components/bingo_modal.dart';
 import 'package:loto_mks/models/bingo_button.dart';
 import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
+import 'package:loto_mks/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class LotoPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LotoPageState extends State<LotoPage> {
             'JEU DU BINGO !',
             style: GoogleFonts.luckiestGuy(
               fontSize: 32,
-              color: Color(0xFF1A237E),
+              color: ThemeColors.primary,
             ),
           ),
           leading: IconButton(
@@ -34,7 +35,7 @@ class _LotoPageState extends State<LotoPage> {
             icon: Icon(FontAwesomeIcons.arrowLeft),
             onPressed: () => Navigator.pop(context),
           ),
-          backgroundColor: Color(0xFFCFD8DC),
+          backgroundColor: ThemeColors.accent,
           centerTitle: true,
           scrolledUnderElevation: 0,
         ),
@@ -44,9 +45,9 @@ class _LotoPageState extends State<LotoPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFCFD8DC),
-                    Color(0xFF455A64),
-                    Color(0xFF263238),
+                    ThemeColors.accent,
+                    ThemeColors.lightGray,
+                    ThemeColors.darkGray,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -61,7 +62,7 @@ class _LotoPageState extends State<LotoPage> {
                       children: [
                         Expanded(
                           child: Card(
-                            color: Color(0xFFECEFF1),
+                            color: ThemeColors.secondary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -75,12 +76,16 @@ class _LotoPageState extends State<LotoPage> {
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.luckiestGuy(
                                           fontSize: 20,
-                                          color: Color(0xFF1A237E),
+                                          color: ThemeColors.primary,
                                         ),
                                       )
-                                    : Image(
-                                        image: AssetImage(
-                                          provider.currentCard!.asset,
+                                    : Hero(
+                                        tag: provider.currentCard!.asset,
+                                        // Tag unique par carte
+                                        child: Image(
+                                          image: AssetImage(
+                                            provider.currentCard!.asset,
+                                          ),
                                         ),
                                       ),
                               ),
@@ -89,7 +94,7 @@ class _LotoPageState extends State<LotoPage> {
                         ),
                         Expanded(
                           child: Card(
-                            color: Color(0xFFECEFF1),
+                            color: ThemeColors.secondary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -101,7 +106,10 @@ class _LotoPageState extends State<LotoPage> {
                                 mainAxisSpacing: 4,
                                 crossAxisCount: provider.gridViewAxisCount,
                                 children: provider.announcedCards.map((card) {
-                                  return Image(image: AssetImage(card.asset));
+                                  return Hero(
+                                    tag: card.asset,
+                                    child: Image(image: AssetImage(card.asset)),
+                                  );
                                 }).toList(),
                               ),
                             ),
