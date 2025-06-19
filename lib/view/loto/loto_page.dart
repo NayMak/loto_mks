@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:loto_mks/components/modal.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loto_mks/components/floating_toolbar.dart';
+import 'package:loto_mks/components/bingo_modal.dart';
+import 'package:loto_mks/models/bingo_button.dart';
+import 'package:loto_mks/models/toolbar_button.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
-import 'package:loto_mks/view/loto/circle_button.dart';
+import 'package:loto_mks/theme/theme_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:just_audio/just_audio.dart';
 
 class LotoPage extends StatefulWidget {
   const LotoPage({super.key});
@@ -19,270 +22,164 @@ class _LotoPageState extends State<LotoPage> {
     return ChangeNotifierProvider<LotoProvider>(
       create: (_) => LotoProvider(),
       child: Scaffold(
-        backgroundColor: Colors.tealAccent,
+        appBar: AppBar(
+          title: Text(
+            'JEU DU BINGO !',
+            style: GoogleFonts.luckiestGuy(
+              fontSize: 32,
+              color: ThemeColors.primary,
+            ),
+          ),
+          leading: IconButton(
+            iconSize: 30,
+            icon: Icon(FontAwesomeIcons.arrowLeft),
+            onPressed: () => Navigator.pop(context),
+          ),
+          backgroundColor: ThemeColors.lightBlueGray,
+          centerTitle: true,
+          scrolledUnderElevation: 0,
+        ),
         body: Consumer<LotoProvider>(
           builder: (context, provider, Widget? child) {
-            return Center(
-              child: Column(
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    ThemeColors.lightBlueGray,
+                    ThemeColors.lightGray,
+                    ThemeColors.darkGray,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Stack(
                 children: [
-                  Text(
-                    'JEU DU BINGO !',
-                    style: TextStyle(
-                      fontSize: 96,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 3.0,
-                          color: Colors.black.withValues(alpha: 0.8),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    color: Colors.grey.withValues(alpha: 0.3),
-                    thickness: 2,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        spacing: 16,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                              ),
-                              child: provider.currentCard == null
-                                  ? Center(
-                                      child: Text(
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      spacing: 16,
+                      children: [
+                        Expanded(
+                          child: Card(
+                            color: ThemeColors.secondary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Center(
+                                child: provider.currentCard == null
+                                    ? Text(
                                         'Lancer le jeu pour commencer à tirer les cartes',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.luckiestGuy(
                                           fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                          shadows: [
-                                            Shadow(
-                                              offset: Offset(1, 1),
-                                              blurRadius: 1.0,
-                                              color: Colors.black
-                                                  .withValues(alpha: 0.1),
-                                            ),
-                                          ],
+                                          color: ThemeColors.primary,
                                         ),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Center(
+                                      )
+                                    : Hero(
+                                        tag: provider.currentCard!.asset,
+                                        // Tag unique par carte
                                         child: Image(
                                           image: AssetImage(
                                             provider.currentCard!.asset,
                                           ),
                                         ),
                                       ),
-                                    ),
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: provider.isGameStarted
-                                ? MainAxisAlignment.spaceEvenly
-                                : MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Visibility(
-                                visible: provider.isGameStarted,
-                                child: CircleButton(
-                                  icon: FontAwesomeIcons.fileArrowUp,
-                                  onPressed: () {
-                                    provider.selectRandomCard();
-                                  },
-                                ),
-                              ),
-                              Visibility(
-                                visible: !provider.isGameStarted,
-                                child: Column(
-                                  children: [
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.circlePlay,
-                                      onPressed: () {
-                                        provider
-                                          ..init()
-                                          ..startGame()
-                                          ..selectRandomCard();
-                                      },
-                                    ),
-                                    SizedBox(height: 16),
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.arrowLeft,
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                    /*
-                                SizedBox(height: 16),
-                                Visibility(
-                                  visible: provider.isGameStarted,
-                                  child: CircleButton(
-                                    icon: provider.isSoundOn
-                                        ? Icons.volume_up
-                                        : Icons.volume_off,
-                                    onPressed: () {
-                                      provider.soundOption();
-                                    },
-                                  ),
-                                ),
-                                */
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: provider.isGameStarted,
-                                child: Column(
-                                  children: [
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.b,
-                                      backgroundColor: Colors.redAccent,
-                                      onPressed: () {
-                                        if (provider.isSoundOn) {
-                                          provider.player = AudioPlayer()
-                                            ..setUrl(
-                                              'assets/audio/bingo_win.mp3',
-                                            );
-                                        }
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            if (provider.isSoundOn) {
-                                              provider.player!.play();
-                                            }
-                                            return AlertDialog(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              scrollable: true,
-                                              content: Column(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/bingo/bingo.png',
-                                                  ),
-                                                  CircleButton(
-                                                    icon:
-                                                        FontAwesomeIcons.house,
-                                                    onPressed: () {
-                                                      if (provider.isSoundOn) {
-                                                        provider.player!.stop();
-                                                      }
-                                                      Navigator.popUntil(
-                                                        context,
-                                                        (route) =>
-                                                            route.isFirst,
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 16),
-                                    CircleButton(
-                                      icon: FontAwesomeIcons.arrowRotateRight,
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return ChangeNotifierProvider.value(
-                                              value: provider,
-                                              child: Modal(
-                                                title:
-                                                    'Souhaitez-vous démarrer une nouvelle partie ?',
-                                                subtitle:
-                                                    'Les numéros tirées lors de la partie en cours seront réinitialisés.',
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CircleButton(
-                                        icon: FontAwesomeIcons.tableCellsLarge,
-                                        onPressed: () {
-                                          provider.updateGridViewAxisCount(3);
-                                        },
-                                        disable:
-                                            provider.gridViewAxisCount == 3,
-                                      ),
-                                      SizedBox(width: 16),
-                                      CircleButton(
-                                        icon: FontAwesomeIcons.tableCells,
-                                        onPressed: () {
-                                          provider.updateGridViewAxisCount(5);
-                                        },
-                                        disable:
-                                            provider.gridViewAxisCount == 5,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 16),
-                                  Expanded(
-                                    child: GridView.count(
-                                      primary: false,
-                                      padding: const EdgeInsets.all(8),
-                                      crossAxisSpacing: 4,
-                                      mainAxisSpacing: 4,
-                                      crossAxisCount:
-                                          provider.gridViewAxisCount,
-                                      children: [
-                                        ...provider.announcedCards.map((card) {
-                                          return Image(
-                                            image: AssetImage(card.asset),
-                                          );
-                                        }),
-                                      ],
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Expanded(
+                          child: Card(
+                            color: ThemeColors.secondary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: GridView.count(
+                                crossAxisSpacing: 4,
+                                mainAxisSpacing: 4,
+                                crossAxisCount: provider.gridViewAxisCount,
+                                children: provider.announcedCards.map((card) {
+                                  return Hero(
+                                    tag: card.asset,
+                                    child: Image(image: AssetImage(card.asset)),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  FloatingToolbar(
+                    buttons: !provider.isGameStarted
+                        ? [
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.circlePlay,
+                              onPressed: () {
+                                provider
+                                  ..init()
+                                  ..startGame()
+                                  ..selectRandomCard();
+                              },
+                            ),
+                          ]
+                        : [
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.arrowRotateRight,
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      ChangeNotifierProvider.value(
+                                    value: provider,
+                                    child: BingoModal(
+                                      title:
+                                          'Souhaitez-vous démarrer une nouvelle partie ?',
+                                      subtitle:
+                                          'Les numéros tirées lors de la partie en cours seront réinitialisés.',
+                                    ),
+                                  ),
+                                );
+                              },
+                              color: Colors.redAccent,
+                            ),
+                            ToolbarButtonData(
+                              icon: FontAwesomeIcons.fileArrowUp,
+                              onPressed: () => provider.selectRandomCard(),
+                            ),
+                            ToolbarButtonData(
+                              icon: provider.gridViewAxisCount == 3
+                                  ? FontAwesomeIcons.tableCellsLarge
+                                  : FontAwesomeIcons.tableCells,
+                              onPressed: () {
+                                final newCount =
+                                    provider.gridViewAxisCount == 3 ? 5 : 3;
+                                provider.updateGridViewAxisCount(newCount);
+                              },
+                              color: Colors.blue,
+                            ),
+                          ],
                   ),
                 ],
               ),
             );
+          },
+        ),
+        floatingActionButton: Consumer<LotoProvider>(
+          builder: (context, provider, child) {
+            if (provider.isGameStarted) {
+              return BingoButton();
+            } else {
+              return SizedBox.shrink();
+            }
           },
         ),
       ),
