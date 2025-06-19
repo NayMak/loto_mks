@@ -35,7 +35,7 @@ class _LotoPageState extends State<LotoPage> {
             icon: Icon(FontAwesomeIcons.arrowLeft),
             onPressed: () => Navigator.pop(context),
           ),
-          backgroundColor: ThemeColors.accent,
+          backgroundColor: ThemeColors.lightBlueGray,
           centerTitle: true,
           scrolledUnderElevation: 0,
         ),
@@ -45,7 +45,7 @@ class _LotoPageState extends State<LotoPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    ThemeColors.accent,
+                    ThemeColors.lightBlueGray,
                     ThemeColors.lightGray,
                     ThemeColors.darkGray,
                   ],

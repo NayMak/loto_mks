@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    ThemeColors.accent,
+                    ThemeColors.lightBlueGray,
                     ThemeColors.lightGray,
                     ThemeColors.darkGray,
                   ],
@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeColors.accent,
+                          backgroundColor: ThemeColors.lightBlueGray,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),

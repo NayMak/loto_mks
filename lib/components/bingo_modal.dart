@@ -27,7 +27,7 @@ class _BingoModalState extends State<BingoModal> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          backgroundColor: ThemeColors.accent,
+          backgroundColor: ThemeColors.lightBlueGray,
           title: Text(
             widget.title,
             style: GoogleFonts.luckiestGuy(
