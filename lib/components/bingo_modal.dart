@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loto_mks/provider/loto_provider.dart';
-import 'package:loto_mks/theme/colors.dart';
+import 'package:loto_mks/theme/theme_colors.dart';
 import 'package:provider/provider.dart';
 
 class BingoModal extends StatefulWidget {
