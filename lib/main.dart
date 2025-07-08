@@ -13,9 +13,10 @@ class LotoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bingo MKS',
       theme: ThemeData(
-        useMaterial3: false,
+        useMaterial3: true,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
